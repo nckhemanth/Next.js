@@ -3,7 +3,7 @@
 Recommended project repo layout:
 
 ```txt
-nextjs-yc-directory/
+project-root/
   app/
     layout.tsx
     globals.css
@@ -97,4 +97,3 @@ Avoid names like:
 - `data`
 - `helper`
 - `doStuff`
-
