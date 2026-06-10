@@ -79,12 +79,20 @@ if (!parsed.success) {
 }
 ```
 
-## AI SDK Structured Output
+## AI SDK Structured Output (provider-agnostic; Claude shown)
 
 ```ts
-const { output } = await generateText({
-  model: 'openai/gpt-4.1-mini',
-  output: Output.object({ schema }),
+// Stable: generateObject → validated, typed `object`
+const { object } = await generateObject({
+  model: anthropic('claude-opus-4-8'),
+  schema,
+  prompt,
+})
+
+// Beside text: generateText + Output.object({ schema })
+const { experimental_output } = await generateText({
+  model: anthropic('claude-opus-4-8'),
+  experimental_output: Output.object({ schema }), // AI SDK 6: output / { output }
   prompt,
 })
 ```

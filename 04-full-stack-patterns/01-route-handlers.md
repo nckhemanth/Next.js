@@ -54,8 +54,12 @@ const startups = await getStartups()
 
 ## AI Route Handler Example
 
+Stable structured-output path (`generateObject` returns a validated, typed `object`).
+The AI SDK is provider-agnostic — Claude here; swap the `model` line for any provider:
+
 ```ts
-import { generateText, Output } from 'ai'
+import { generateObject } from 'ai'
+import { anthropic } from '@ai-sdk/anthropic'
 import { z } from 'zod'
 
 const schema = z.object({
@@ -66,15 +70,17 @@ const schema = z.object({
 export async function POST(request: Request) {
   const { pitch } = await request.json()
 
-  const { output } = await generateText({
-    model: 'openai/gpt-4.1-mini',
-    output: Output.object({ schema }),
+  const { object } = await generateObject({
+    model: anthropic('claude-opus-4-8'),
+    schema,
     prompt: `Score this startup pitch: ${pitch}`,
   })
 
-  return Response.json(output)
+  return Response.json(object)
 }
 ```
 
-The real project repo includes this pattern with input validation too.
+See [06-ai-sdk](../06-ai-sdk/01-structured-output-with-zod.md) for the full version with
+input validation, the `generateText` + `Output.object({ schema })` variant, and provider
+swaps.
 
