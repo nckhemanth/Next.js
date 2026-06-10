@@ -44,3 +44,11 @@ The skill is not memorizing file names. The skill is answering:
 3. Is this mutation validated, authorized, and isolated on the server?
 4. Can this route stream dynamic islands while keeping the rest fast?
 5. Are secrets and write tokens guaranteed to stay server-side?
+
+## License
+
+MIT
+
+## Connect
+
+GitHub: [@nckhemanth0](https://github.com/nckhemanth0)
