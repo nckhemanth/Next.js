@@ -15,17 +15,27 @@ function validateModelOutput(output: unknown): PitchAnalysis {
   return pitchAnalysisSchema.parse(output)
 }
 
-// Current AI SDK 6 equivalent in a Next.js route/server action:
+// In a Next.js route handler / server action, the same schema drives a real call.
+// Provider-agnostic (AI SDK) — defaults to Claude here; swap one line for OpenAI/Google.
 //
-// import { generateText, Output } from 'ai'
+// Stable path — generateObject (returns a validated, typed `object`):
+//   import { generateObject } from 'ai'
+//   import { anthropic } from '@ai-sdk/anthropic'
+//   const { object } = await generateObject({
+//     model: anthropic('claude-opus-4-8'),
+//     schema: pitchAnalysisSchema,
+//     prompt: `Analyze this startup pitch: ${pitch}`,
+//   })
+//   return Response.json(object)
 //
-// const { output } = await generateText({
-//   model: 'openai/gpt-4.1-mini',
-//   output: Output.object({ schema: pitchAnalysisSchema }),
-//   prompt: `Analyze this startup pitch: ${pitch}`,
-// })
-//
-// return Response.json(output)
+// Structured output beside text — generateText + Output.object({ schema }) only:
+//   import { generateText, Output } from 'ai'
+//   const { experimental_output } = await generateText({
+//     model: anthropic('claude-opus-4-8'),
+//     experimental_output: Output.object({ schema: pitchAnalysisSchema }),
+//     prompt: `Analyze this startup pitch: ${pitch}`,
+//   })
+//   // AI SDK 6 stabilizes experimental_output -> output (same Output.object shape).
 
 const simulatedModelOutput = {
   score: 8,

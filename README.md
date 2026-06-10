@@ -23,9 +23,10 @@ As of the docs checked during creation:
 - Next.js latest on npm: `16.2.9`.
 - React latest on npm: `19.2.7`.
 - AI SDK latest on npm: `6.0.199`.
-- AI SDK structured output now uses `generateText`/`streamText` with
-  `Output.object({ schema })`; this is the current equivalent mental model to
-  older `generateObject` examples.
+- AI SDK structured output: `generateObject` / `streamObject` (pass a Zod `schema`,
+  get a validated `object`) is the stable primary path; `generateText` +
+  `Output.object({ schema })` produces a structured object **alongside** text. The AI SDK
+  is provider-agnostic — examples default to Claude (`@ai-sdk/anthropic`).
 - Next.js Cache Components move caching decisions toward `cacheComponents`,
   `"use cache"`, `cacheLife`, and Suspense boundaries. Older `revalidate` and
   `fetch(..., { next: { revalidate } })` patterns remain important for projects
@@ -51,4 +52,4 @@ MIT
 
 ## Connect
 
-GitHub: [@nckhemanth0](https://github.com/nckhemanth0)
+GitHub: [@nckhemanth](https://github.com/nckhemanth)
